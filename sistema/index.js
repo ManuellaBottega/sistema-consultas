@@ -3,10 +3,10 @@ const router = express.Router()
 
 const criarMedico = require('./criarMedico');
 const criarPaciente = require('./criarPaciente');
-const criarConsulta = require('./criarConsulta');
+const criarConsultas = require('./criarConsultas');
 
 router.post('/medico', criarMedico);
 router.post('/paciente', criarPaciente);
-router.post('/consulta', criarConsulta);
+router.post('/consulta', criarConsultas);
 
 module.exports = router;
