@@ -1,5 +1,4 @@
-const medicos = require('../dados/dadosMedico');
-const pacientes = require('../dados/dadosPaciente');
+const { lerDados, salvarDados } = require("./gerenciarDados");
 
 function criarConsultas(req, res) {
     if (!validarDados(req)) {
@@ -11,7 +10,7 @@ function criarConsultas(req, res) {
     if (!validarIDPaciente(req.body.idPaciente)) {
         return res.status(400).send('ID do paciente invalido.')
     }
-    if (!validarData(req.body.idData)) {
+    if (!validarData(req.body.data)) {
         return res.status(400).send('Data invalida.')
     }
 
@@ -23,16 +22,16 @@ function criarConsultas(req, res) {
         assunto : req.body.assunto
     }
 
-    const Consultas = lerDados();
-    console.log(Consultas);
+    const consultas = lerDados();
+    console.log(consultas);
  
-    if (!Consultas) {
-       criarDados([novaConsulta]);
+    if (!consultas) {
+       salvarDados([consulta]);
        return res.status(201).send('Consulta salva com sucesso!');
     } 
  
-    Consultas.push(novaConsulta);
-    criarDados(Consultas);
+    consultas.push(consulta);
+    salvarDados(consultas);
     return res.status(201).send('Consulta salva com sucesso!');
  }
 

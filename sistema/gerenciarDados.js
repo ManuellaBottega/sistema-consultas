@@ -1,20 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
+const dataFilePath = path.join(__dirname, 'dados.json');
+
 function lerDados() {
-    const filePath = path.join(__dirname, '/dados.json');
- 
-    if (!fs.existsSync(filePath)) {
-       return undefined;
+    if (!fs.existsSync(dataFilePath)) {
+        return { medicos: [], pacientes: [], consultas: [] };
     }
- 
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    return data;
+    const data = fs.readFileSync(dataFilePath, 'utf-8');
+    return JSON.parse(data);
 }
 
-function criarDados() {
-    const filePath = path.join(__dirname, '/dados.json');
-    fs.writeFileSync(filePath, `[\n ${ data.map((d) => JSON.stringify(d)).join(',\n ') } \n]`);
- }
+function salvarDados(data) {
+    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+}
 
-module.exports = { lerDados, criarDados };
+module.exports = { lerDados, salvarDados };
